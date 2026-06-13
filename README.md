@@ -100,7 +100,7 @@ This software is **freeware**. See [LICENSE](LICENSE) for full terms.
 
 ## Privacy
 
-This extension does not collect, transmit, or store any data outside your local browser. See [PRIVACY.md](docs/PRIVACY.md) for the full privacy policy.
+This extension does not collect, transmit, or store any data outside your local browser. See the [Privacy Policy](docs/privacy.html) for full details.
 
 ---
 

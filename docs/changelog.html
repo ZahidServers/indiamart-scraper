@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog — IndiaMart Lead Scraper by Webaon</title>
+  <meta name="description" content="Version history and release notes for the IndiaMart Lead Manager Scraper Chrome extension by Webaon.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <div class="nav-logo">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span>IndiaMart Lead Scraper</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="changelog.html" class="active">Changelog</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="credits.html">Credits</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+  <div class="page-header">
+    <h1>Changelog</h1>
+    <p>All notable changes to IndiaMart Lead Scraper are documented here.</p>
+  </div>
+
+  <div class="release">
+    <div class="release-dot"></div>
+    <div class="release-header">
+      <span class="version-tag">v7.0</span>
+      <span class="release-date">June 2026 — Latest</span>
+    </div>
+    <h3 style="color:#f1f5f9;font-size:17px;font-weight:700;margin-bottom:18px">Major rewrite — SPA mode &amp; full UI overhaul</h3>
+
+    <div class="change-group">
+      <h4 class="tag-added">Added</h4>
+      <ul>
+        <li>Full <strong>SPA (Single Page Application) mode</strong> — the scraper now detects IndiaMart's React-based DOM updates in-place without requiring any page reloads</li>
+        <li><strong>Pause &amp; Resume</strong> — stop mid-scrape and continue from exactly where you left off; all collected leads are preserved</li>
+        <li><strong>Auto-resume on refresh</strong> — if the page unexpectedly reloads during a scrape, the scraper automatically picks up from storage</li>
+        <li><strong>Deduplication via row ID tracking</strong> — leads are never double-counted across multiple scraping sessions or page navigations</li>
+        <li>Real-time <strong>progress bar</strong> with smooth animated gradient fill</li>
+        <li>Three-stat dashboard showing <strong>Collected / Total / Progress %</strong> at a glance</li>
+        <li>Status badge with four distinct states: Idle, Scraping, Paused, Complete</li>
+        <li>Live scrolling <strong>activity log</strong> showing per-page progress</li>
+        <li><strong>Excel (XLSX) export</strong> using bundled SheetJS — auto-sized column widths, no external dependency</li>
+        <li><strong>CSV export</strong> with UTF-8 BOM for correct character encoding when opened in Excel</li>
+        <li>Graceful <strong>XLSX → CSV fallback</strong> if Excel generation fails</li>
+        <li>Download buttons are always available once any leads are collected — not locked behind completion</li>
+        <li>"<strong>Clear &amp; Reset</strong>" button with confirmation dialog to prevent accidental data loss</li>
+        <li><strong>About tab</strong> with Webaon services showcase and call-to-action</li>
+        <li>Complete dark UI with Inter font, gradient accents, and smooth hover transitions</li>
+        <li>Manifest V3 compliance</li>
+      </ul>
+    </div>
+
+    <div class="change-group">
+      <h4 class="tag-changed">Changed</h4>
+      <ul>
+        <li>Complete rewrite of the scraping engine from page-reload-based navigation to SPA-aware DOM polling with <code>waitForRowChange()</code></li>
+        <li>Storage architecture unified under a single <code>ims</code> key in <code>chrome.storage.local</code> for reliability and atomic updates</li>
+        <li>UI rebuilt entirely from scratch with improved layout, typography, iconography, and button state management</li>
+        <li>CSV export moved to the popup directly (reads from storage) — always works even when the IndiaMart tab is closed</li>
+        <li>Polling interval reduced to 800ms for snappier UI updates</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="release">
+    <div class="release-dot" style="background:#475569;box-shadow:none"></div>
+    <div class="release-header">
+      <span class="version-tag" style="background:#1e1e2e;border:1px solid rgba(255,255,255,0.1);color:#64748b">v6.x and earlier</span>
+      <span class="release-date">Legacy</span>
+    </div>
+    <h3 style="color:#475569;font-size:15px;font-weight:600;margin-bottom:10px">Page-reload based scraper</h3>
+    <p style="font-size:13.5px;color:#475569">Legacy versions relied on full page reloads to navigate between pages of the Lead Manager. These versions are no longer compatible with IndiaMart's current React SPA architecture and are not supported. Upgrade to v7.0 for reliable scraping.</p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="credits.html">Credits</a>
+      <a href="http://www.webaon.com/" target="_blank" rel="noopener">webaon.com</a>
+    </div>
+    <p>Made with care by <strong>Mohammed Zahid Imtiyaz Wadiwale</strong> · Webaon · v7.0 · Freeware</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IndiaMart Lead Scraper — by Webaon</title>
+  <meta name="description" content="Free Chrome extension to scrape all your IndiaMart leads and export to Excel or CSV. Built by Webaon.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <div class="nav-logo">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span>IndiaMart Lead Scraper</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="credits.html">Credits</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+    Freeware · Version 7.0
+  </div>
+  <div class="hero-icon">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <h1>IndiaMart Lead Manager Scraper</h1>
+  <p>Automatically collect all your IndiaMart leads and export them to Excel or CSV — free, fast, and fully local.</p>
+  <div class="hero-tags">
+    <span>Chrome Extension</span>
+    <span>SPA-aware</span>
+    <span>Pause &amp; Resume</span>
+    <span>Excel + CSV Export</span>
+    <span>No data leaves your browser</span>
+    <span>Manifest V3</span>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- Features -->
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(99,102,241,0.12)">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+      </div>
+      <h3>Auto-pagination</h3>
+      <p>Clicks Next automatically through every page of your Lead Manager without any manual work.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(6,182,212,0.12)">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      </div>
+      <h3>Excel &amp; CSV Export</h3>
+      <p>Download leads instantly as .xlsx (with column widths auto-sized) or .csv with UTF-8 BOM support.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(52,211,153,0.12)">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+      </div>
+      <h3>Pause &amp; Resume</h3>
+      <p>Stop mid-scrape and pick up where you left off. All collected leads are preserved in storage.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(251,191,36,0.12)">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>100% Private</h3>
+      <p>All data stays in your browser's local storage. Nothing is sent to any server, ever.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(167,139,250,0.12)">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      </div>
+      <h3>SPA-aware</h3>
+      <p>Detects IndiaMart's React-based page updates without any reloads. Works with the live DOM.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(239,68,68,0.12)">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+      </div>
+      <h3>Auto-resume</h3>
+      <p>If the page unexpectedly refreshes, the scraper automatically resumes from where it left off.</p>
+    </div>
+  </div>
+
+  <!-- Installation -->
+  <div class="card">
+    <h2>
+      <div class="icon" style="background:rgba(99,102,241,0.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      </div>
+      Installation
+    </h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Download the extension</h4>
+          <p>Download or clone this repository to your computer.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Open Chrome Extensions</h4>
+          <p>In Google Chrome, navigate to <code>chrome://extensions</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Enable Developer Mode</h4>
+          <p>Toggle <strong>Developer mode</strong> in the top-right corner of the Extensions page.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Load unpacked</h4>
+          <p>Click <strong>Load unpacked</strong> and select the <code>indiamart-scraper</code> folder.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Pin the extension</h4>
+          <p>Click the puzzle icon in Chrome's toolbar and pin <strong>IndiaMart Lead Scraper</strong> for easy access.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Use -->
+  <div class="card">
+    <h2>
+      <div class="icon" style="background:rgba(6,182,212,0.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      </div>
+      How to Use
+    </h2>
+    <div class="alert alert-info">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span>Make sure you are on <strong>seller.indiamart.com/messagecentre</strong> in <strong>List View</strong> before clicking Start.</span>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Log in to IndiaMart</h4>
+          <p>Go to your seller dashboard and open <strong>Lead Manager</strong>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Switch to List View</h4>
+          <p>Click the List View icon so your leads appear in a grid/table layout.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Click Start</h4>
+          <p>Open the extension popup and click <strong>Start</strong>. The scraper will automatically page through all your leads.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Export your data</h4>
+          <p>Once complete — or at any point — click <strong>CSV</strong> or <strong>Excel</strong> to download your leads.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exported Fields -->
+  <div class="card">
+    <h2>
+      <div class="icon" style="background:rgba(52,211,153,0.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round"><path d="M9 17H5a2 2 0 00-2 2"/><path d="M15 17h4a2 2 0 012 2"/><rect x="9" y="11" width="6" height="10"/><path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v3H3z"/></svg>
+      </div>
+      Exported Fields
+    </h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Column</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Source</strong></td><td>Lead source (e.g., IndiaMart, direct enquiry)</td></tr>
+          <tr><td><strong>Product</strong></td><td>Product or service the buyer enquired about</td></tr>
+          <tr><td><strong>Quantity</strong></td><td>Requested quantity from the buyer</td></tr>
+          <tr><td><strong>Buyer Name</strong></td><td>Full name of the enquiring buyer</td></tr>
+          <tr><td><strong>Mobile</strong></td><td>Buyer's mobile number</td></tr>
+          <tr><td><strong>City</strong></td><td>Buyer's city or location</td></tr>
+          <tr><td><strong>Date/Time</strong></td><td>Date and time the enquiry was received</td></tr>
+          <tr><td><strong>Message</strong></td><td>Buyer's enquiry message</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="card">
+    <h2>
+      <div class="icon" style="background:rgba(251,191,36,0.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      Controls
+    </h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Button</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Start</strong></td><td>Begin scraping from the first page of your Lead Manager</td></tr>
+          <tr><td><strong>Stop</strong></td><td>Stop scraping and mark as complete — all collected data is preserved</td></tr>
+          <tr><td><strong>Pause</strong></td><td>Pause mid-scrape — data is preserved; click Resume to continue</td></tr>
+          <tr><td><strong>Resume</strong></td><td>Continue scraping from where you paused</td></tr>
+          <tr><td><strong>CSV</strong></td><td>Download all collected leads as a .csv file</td></tr>
+          <tr><td><strong>Excel</strong></td><td>Download all collected leads as a formatted .xlsx file</td></tr>
+          <tr><td><strong>Clear &amp; Reset</strong></td><td>Erase all collected data and start fresh (confirmation required)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Permissions -->
+  <div class="card">
+    <h2>
+      <div class="icon" style="background:rgba(167,139,250,0.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      Permissions
+    </h2>
+    <p>This extension requests only the minimum permissions needed to operate.</p>
+    <div style="margin-top:14px">
+      <div class="perm-row">
+        <span class="perm-name">activeTab</span>
+        <span class="perm-desc">Read the lead data from the IndiaMart tab currently open in your browser.</span>
+      </div>
+      <div class="perm-row">
+        <span class="perm-name">scripting</span>
+        <span class="perm-desc">Inject the scraper script into the IndiaMart page to interact with the lead grid.</span>
+      </div>
+      <div class="perm-row">
+        <span class="perm-name">storage</span>
+        <span class="perm-desc">Save collected leads in your browser so they persist while the popup opens and closes.</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="alert alert-green" style="margin-bottom:0">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span>The extension is restricted to <strong>seller.indiamart.com</strong> only and makes no external network requests.</span>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h2>Need a custom tool like this?</h2>
+    <p>Webaon builds automation tools, scrapers, CRM integrations, web apps, and Android apps — tailored to your business.</p>
+    <a class="btn-cta" href="http://www.webaon.com/" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      Visit webaon.com
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="credits.html">Credits</a>
+      <a href="http://www.webaon.com/" target="_blank" rel="noopener">webaon.com</a>
+    </div>
+    <p>Made with care by <strong>Mohammed Zahid Imtiyaz Wadiwale</strong> · Webaon · v7.0 · Freeware</p>
+  </div>
+</footer>
+
+</body>
+</html>

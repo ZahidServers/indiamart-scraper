@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "IndiaMart Lead Manager Scraper",
+  "version": "7.0",
+  "description": "Scrape all leads from IndiaMart Lead Manager and export to Excel/CSV. Built by Webaon.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["https://seller.indiamart.com/*"],
+  "web_accessible_resources": [{
+    "resources": ["xlsx.min.js"],
+    "matches": ["https://seller.indiamart.com/*"]
+  }],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16":  "icon16.png",
+      "48":  "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "content_scripts": [{
+    "matches": ["https://seller.indiamart.com/messagecentre*"],
+    "js": ["content.js"],
+    "run_at": "document_idle"
+  }]
+}

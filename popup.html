@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      width: 340px;
+      background: #0f0f14;
+      color: #e2e8f0;
+      min-height: 100px;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 16px 16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .logo-circle {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(99,102,241,0.4);
+    }
+    .header h1 { font-size: 14px; font-weight: 700; color: #f1f5f9; letter-spacing: -0.2px; }
+    .header-sub { font-size: 10.5px; color: #94a3b8; margin-left: 42px; }
+    .tab-bar { display: flex; gap: 2px; margin-top: 12px; }
+    .tab {
+      flex: 1; padding: 5px 0; font-size: 10px; font-weight: 600;
+      text-align: center; cursor: pointer; border-radius: 6px;
+      color: #64748b; transition: all 0.2s; letter-spacing: 0.3px; text-transform: uppercase;
+    }
+    .tab.active { background: rgba(99,102,241,0.2); color: #818cf8; }
+    .tab:hover:not(.active) { color: #94a3b8; }
+
+    /* ── Panels ── */
+    .panel { display: none; padding: 14px; }
+    .panel.active { display: block; }
+
+    /* ── Stats ── */
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+    .stat {
+      background: #1e1e2e;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+    .stat .lbl { font-size: 9px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .stat .val { font-size: 17px; font-weight: 700; color: #c7d2fe; }
+    .stat .val.green { color: #34d399; }
+    .stat .val.blue  { color: #60a5fa; }
+
+    /* ── Progress ── */
+    .progress-wrap {
+      background: #1e1e2e; border-radius: 99px; height: 6px;
+      margin-bottom: 10px; overflow: hidden;
+    }
+    .progress-bar {
+      background: linear-gradient(90deg, #6366f1, #06b6d4);
+      height: 100%; border-radius: 99px; width: 0%;
+      transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 0 8px rgba(99,102,241,0.5);
+    }
+
+    /* ── Badge ── */
+    .badge {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 11px; font-weight: 600; padding: 6px 10px;
+      border-radius: 8px; margin-bottom: 10px; letter-spacing: 0.1px;
+    }
+    .badge svg { flex-shrink: 0; }
+    .b-idle   { background: #1e1e2e; color: #475569; border: 1px solid rgba(255,255,255,0.05); }
+    .b-run    { background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+    .b-paused { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+    .b-done   { background: rgba(99,102,241,0.1); color: #818cf8; border: 1px solid rgba(99,102,241,0.2); }
+
+    /* ── Log ── */
+    .log {
+      background: #0d0d14;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 10.5px;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      height: 76px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      line-height: 1.7;
+      color: #4ade80;
+    }
+    .log::-webkit-scrollbar { width: 3px; }
+    .log::-webkit-scrollbar-track { background: transparent; }
+    .log::-webkit-scrollbar-thumb { background: #2d2d3d; border-radius: 99px; }
+
+    /* ── Buttons ── */
+    .btn-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 7px; }
+    .btn-full   { margin-bottom: 7px; }
+
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 9px 8px; border: none; border-radius: 9px;
+      font-family: inherit; font-size: 11.5px; font-weight: 600;
+      cursor: pointer; width: 100%; transition: all 0.15s; letter-spacing: 0.1px;
+    }
+    .btn:hover:not(:disabled) { filter: brightness(1.12); transform: translateY(-1px); }
+    .btn:active:not(:disabled) { transform: translateY(0); }
+    .btn:disabled { opacity: 0.28; cursor: not-allowed; transform: none !important; filter: none !important; }
+
+    .btn-start  { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; box-shadow: 0 2px 12px rgba(99,102,241,0.35); }
+    .btn-stop   { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+    .btn-pause  { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+    .btn-resume { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+    .btn-csv    { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: #fff; }
+    .btn-xlsx   { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
+    .btn-clear  { background: #1e1e2e; color: #64748b; border: 1px solid rgba(255,255,255,0.07); font-size: 11px; }
+
+    /* ── About Panel ── */
+    .about-hero {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      text-align: center;
+      border: 1px solid rgba(99,102,241,0.2);
+      position: relative; overflow: hidden;
+    }
+    .about-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top, rgba(99,102,241,0.15), transparent 60%);
+      pointer-events: none;
+    }
+    .about-logo {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      border-radius: 14px;
+      margin: 0 auto 10px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 24px rgba(99,102,241,0.4);
+    }
+    .about-hero h2 { font-size: 15px; font-weight: 700; color: #f1f5f9; margin-bottom: 3px; }
+    .about-hero p  { font-size: 11px; color: #94a3b8; }
+    .dev-name { font-size: 12px; font-weight: 600; color: #c7d2fe; margin-top: 8px; }
+
+    .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 12px; }
+    .service-card {
+      background: #1e1e2e;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+    .service-card .svc-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      margin: 0 auto 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .service-card .svc-name { font-size: 10.5px; font-weight: 600; color: #cbd5e1; }
+    .service-card .svc-desc { font-size: 9.5px; color: #475569; margin-top: 2px; }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(6,182,212,0.15));
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .cta-box h3 { font-size: 13px; font-weight: 700; color: #c7d2fe; margin-bottom: 4px; }
+    .cta-box p  { font-size: 10.5px; color: #94a3b8; margin-bottom: 10px; line-height: 1.5; }
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      color: white; padding: 8px 20px; border-radius: 99px;
+      font-size: 11.5px; font-weight: 700; cursor: pointer;
+      border: none; font-family: inherit;
+      box-shadow: 0 4px 15px rgba(99,102,241,0.4);
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+    .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 10px 0; }
+
+    .footer-links { display: flex; justify-content: center; gap: 16px; }
+    .footer-links a {
+      font-size: 10px; color: #475569; text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .footer-links a:hover { color: #818cf8; }
+
+    .tag {
+      display: inline-block;
+      background: rgba(99,102,241,0.15);
+      color: #818cf8;
+      font-size: 9.5px; font-weight: 600;
+      padding: 2px 7px; border-radius: 99px;
+      margin: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo-circle">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+        <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <h1>IndiaMart Lead Scraper</h1>
+    </div>
+  </div>
+  <div class="header-sub">Auto-clicks Next &nbsp;·&nbsp; Pause &amp; Resume &nbsp;·&nbsp; Export CSV / Excel</div>
+  <div class="tab-bar">
+    <div class="tab active" data-tab="scraper">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="display:inline;margin-right:3px;vertical-align:middle"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>Scraper
+    </div>
+    <div class="tab" data-tab="about">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" style="display:inline;margin-right:3px;vertical-align:middle"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>About
+    </div>
+  </div>
+</div>
+
+<!-- ── Scraper Panel ── -->
+<div class="panel active" id="panel-scraper">
+  <div class="stat-row">
+    <div class="stat">
+      <div class="lbl">Collected</div>
+      <div class="val green" id="count">0</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Total</div>
+      <div class="val blue" id="total">–</div>
+    </div>
+    <div class="stat">
+      <div class="lbl">Progress</div>
+      <div class="val" id="pct">0%</div>
+    </div>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-bar" id="progress"></div></div>
+
+  <div class="badge b-idle" id="badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" id="badge-icon"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/></svg>
+    <span id="badge-text">Idle — ready to start</span>
+  </div>
+
+  <div class="log" id="log">Ready. Open Lead Manager in List View, then click Start.<br></div>
+
+  <div class="btn-grid-2">
+    <button class="btn btn-start" id="btnStart">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Start
+    </button>
+    <button class="btn btn-stop" id="btnStop" disabled>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1"/></svg> Stop
+    </button>
+  </div>
+  <div class="btn-grid-2">
+    <button class="btn btn-pause" id="btnPause" disabled>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg> Pause
+    </button>
+    <button class="btn btn-resume" id="btnResume" disabled>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Resume
+    </button>
+  </div>
+  <div class="btn-grid-2">
+    <button class="btn btn-csv" id="btnCSV" disabled>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> CSV
+    </button>
+    <button class="btn btn-xlsx" id="btnXLSX" disabled>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Excel
+    </button>
+  </div>
+  <button class="btn btn-clear btn-full" id="btnClear">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+    Clear &amp; Reset
+  </button>
+</div>
+
+<!-- ── About Panel ── -->
+<div class="panel" id="panel-about">
+  <div class="about-hero">
+    <div class="about-logo">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Webaon</h2>
+    <p>Digital solutions that power your business</p>
+    <div class="dev-name">Mohammed Zahid Imtiyaz Wadiwale</div>
+    <p style="font-size:10px;color:#475569;margin-top:2px">Developer &amp; Founder</p>
+  </div>
+
+  <div class="service-grid">
+    <div class="service-card">
+      <div class="svc-icon" style="background:rgba(99,102,241,0.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="svc-name">Web Hosting</div>
+      <div class="svc-desc">Fast &amp; reliable</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon" style="background:rgba(6,182,212,0.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+      </div>
+      <div class="svc-name">Web Dev</div>
+      <div class="svc-desc">CMS &amp; custom sites</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon" style="background:rgba(52,211,153,0.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+      </div>
+      <div class="svc-name">Android Apps</div>
+      <div class="svc-desc">Native &amp; hybrid</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon" style="background:rgba(251,191,36,0.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <div class="svc-name">RPA &amp; Automation</div>
+      <div class="svc-desc">Like this tool!</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon" style="background:rgba(239,68,68,0.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="svc-name">Digital Marketing</div>
+      <div class="svc-desc">SEO &amp; campaigns</div>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon" style="background:rgba(167,139,250,0.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      </div>
+      <div class="svc-name">Custom CMS</div>
+      <div class="svc-desc">Tailored for you</div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>🚀 Need a custom tool like this?</h3>
+    <p>We build automation tools, scrapers, CRM integrations &amp; full-stack web apps tailored to your business needs.</p>
+    <a class="btn-cta" href="https://www.webaon.com/" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      Visit webaon.com
+    </a>
+  </div>
+
+  <div class="divider"></div>
+  <div class="footer-links">
+    <a href="https://www.webaon.com/" target="_blank">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+      webaon.com
+    </a>
+    <a href="mailto:ceo@webaon.com">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Contact Us
+    </a>
+  </div>
+  <p style="text-align:center;font-size:9.5px;color:#2d2d3d;margin-top:10px">Made with ♥ by Webaon · v7.0</p>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
